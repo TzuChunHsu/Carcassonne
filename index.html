@@ -127,6 +127,37 @@ h1.title .amp{color:var(--wine);font-style:italic;font-family:"EB Garamond",seri
 }
 .edition-line span.dot{width:4px;height:4px;border-radius:50%;background:var(--rule)}
 
+/* PDF download button in masthead */
+.pdf-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  margin-top:22px;padding:12px 22px;
+  background:var(--wine);color:var(--parchment);
+  font-family:"Noto Serif TC","EB Garamond",serif;font-weight:600;font-size:15px;
+  text-decoration:none;letter-spacing:.08em;
+  border:1px solid var(--wine-deep);
+  border-radius:3px;
+  box-shadow:0 2px 0 rgba(58,17,8,.35), inset 0 1px 0 rgba(255,255,255,.12);
+  transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.pdf-btn:hover{
+  background:var(--wine-deep);
+  transform:translateY(-1px);
+  box-shadow:0 3px 0 rgba(58,17,8,.4), inset 0 1px 0 rgba(255,255,255,.12);
+}
+.pdf-btn:active{transform:translateY(1px);box-shadow:0 1px 0 rgba(58,17,8,.3)}
+.pdf-btn svg{flex:none}
+.pdf-btn .en{
+  font-family:"Cinzel",serif;font-weight:400;font-size:11px;
+  letter-spacing:.2em;opacity:.75;
+  padding-left:10px;margin-left:4px;
+  border-left:1px solid rgba(255,255,255,.35);
+}
+@media (max-width:720px){
+  .pdf-btn{font-size:14px;padding:10px 18px}
+  .pdf-btn .en{font-size:10px;padding-left:8px}
+}
+@media print{.pdf-btn{display:none}}
+
 /* ===== NAV ===== */
 nav.tabs{
   position:sticky;top:0;z-index:20;
@@ -392,6 +423,17 @@ details.collapse .content{
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:24px 0}
 @media (max-width:720px){.two-col{grid-template-columns:1fr}}
 
+/* ===== WOODCUT SVG ICONS ===== */
+.wcut{display:inline-block;vertical-align:middle;color:var(--ink)}
+.wcut svg{display:block;width:100%;height:100%;overflow:visible}
+svg .ink{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+svg .fill{fill:currentColor;stroke:none}
+svg .hatch{stroke:currentColor;stroke-width:.7;fill:none}
+svg .thin{fill:none;stroke:currentColor;stroke-width:1;stroke-linecap:round;stroke-linejoin:round}
+svg .paper{fill:var(--parchment);stroke:none}
+.feat .badge svg{width:42px;height:42px;color:var(--wine-deep)}
+.feat .badge{background:rgba(122,31,24,.07)}
+
 /* feature card with icon slot */
 .feat{
   border:1px solid var(--rule);
@@ -425,6 +467,11 @@ details.collapse .content{
   border:1px solid var(--rule);
   padding:18px 10px;
   background:rgba(255,252,240,.5);
+}
+.terrain .tile-img{
+  display:block;width:96px;height:96px;margin:0 auto 10px;
+  border:1.5px solid #5a3a20;border-radius:3px;
+  box-shadow:0 2px 0 rgba(90,58,32,.25), inset 0 0 0 1px rgba(255,255,255,.2);
 }
 .terrain .tile{
   width:76px;height:76px;margin:0 auto 10px;
@@ -674,6 +721,256 @@ footer .orn{color:var(--rule);font-size:22px;display:block;margin-bottom:10px}
 </style>
 </head>
 <body>
+
+<!-- ==================== SVG ICON LIBRARY (woodcut / line-art, original) ==================== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <!-- MEEPLE: classic Carcassonne meeple silhouette (arms up, legs apart) -->
+    <symbol id="i-meeple" viewBox="0 0 64 64">
+      <path class="fill" d="M32 6c-4.4 0-8 3.6-8 8 0 2.6 1.3 4.9 3.2 6.3-.8 1.6-2.4 2.7-4.2 2.7-3.3 0-6 2.7-6 6 0 2.9 2 5.3 4.8 5.9V55c0 1.7 1.3 3 3 3h4c1.7 0 3-1.3 3-3v-9h4v9c0 1.7 1.3 3 3 3h4c1.7 0 3-1.3 3-3V34.9c2.8-.6 4.8-3 4.8-5.9 0-3.3-2.7-6-6-6-1.8 0-3.4-1.1-4.2-2.7C38.7 18.9 40 16.6 40 14c0-4.4-3.6-8-8-8z"/>
+    </symbol>
+
+    <!-- BIG MEEPLE: same silhouette, heftier proportions -->
+    <symbol id="i-meeple-big" viewBox="0 0 64 64">
+      <path class="fill" d="M32 4c-5 0-9 4-9 9 0 3 1.5 5.6 3.7 7.2-.9 1.9-2.8 3.2-5 3.2-3.7 0-6.7 3-6.7 6.7 0 3.3 2.4 6.1 5.5 6.6V57c0 1.7 1.3 3 3 3h4.5c1.7 0 3-1.3 3-3V46h4v11c0 1.7 1.3 3 3 3H42c1.7 0 3-1.3 3-3V36.7c3.1-.5 5.5-3.3 5.5-6.6 0-3.7-3-6.7-6.7-6.7-2.2 0-4.1-1.3-5-3.2C41 18.6 42.5 16 42.5 13c0-5-4-9-9-9z"/>
+    </symbol>
+
+    <!-- ABBOT: meeple with pointed hood -->
+    <symbol id="i-abbot" viewBox="0 0 64 64">
+      <path class="fill" d="M32 4l-7 12c-.7 1.2-1 2.5-1 3.9 0 2.6 1.3 4.9 3.2 6.3-.8 1.6-2.4 2.7-4.2 2.7-3.3 0-6 2.7-6 6 0 2.9 2 5.3 4.8 5.9V55c0 1.7 1.3 3 3 3h4c1.7 0 3-1.3 3-3v-9h4v9c0 1.7 1.3 3 3 3h4c1.7 0 3-1.3 3-3V34.9c2.8-.6 4.8-3 4.8-5.9 0-3.3-2.7-6-6-6-1.8 0-3.4-1.1-4.2-2.7 1.9-1.4 3.2-3.7 3.2-6.3 0-1.4-.3-2.7-1-3.9L32 4z"/>
+    </symbol>
+
+    <!-- BUILDER: meeple holding a hammer -->
+    <symbol id="i-builder" viewBox="0 0 64 64">
+      <path class="fill" d="M28 6c-4 0-7.2 3.2-7.2 7.2 0 2.3 1.1 4.4 2.8 5.7-.7 1.4-2.1 2.3-3.6 2.3-3 0-5.4 2.4-5.4 5.4 0 2.6 1.8 4.8 4.3 5.3V55c0 1.7 1.3 3 3 3h3.5c1.7 0 3-1.3 3-3v-9h3.4v9c0 1.7 1.3 3 3 3H38c1.7 0 3-1.3 3-3V31.9c2.5-.5 4.3-2.7 4.3-5.3 0-3-2.4-5.4-5.4-5.4-1.5 0-2.9-.9-3.6-2.3 1.7-1.3 2.8-3.3 2.8-5.7C39.2 9.2 36 6 32 6h-4z"/>
+      <rect class="fill" x="44" y="10" width="6" height="18" rx="1"/>
+      <path class="fill" d="M40 16h14v6h-14z"/>
+    </symbol>
+
+    <!-- PIG: chubby pig profile -->
+    <symbol id="i-pig" viewBox="0 0 64 64">
+      <path class="fill" d="M10 34c0-6 5-10 12-10l2-4h4l-1 4.3c2 .4 3.8 1.1 5.4 2.1h8.2c5.2 0 9.8 3.5 11.2 8.5l3.7 1.3c.9.3 1.5 1.2 1.5 2.2v3c0 1-.8 1.8-1.8 1.8H52l-2 6.3c-.3.9-1.1 1.5-2 1.5h-3c-1.1 0-2-.9-2-2v-1.5c-1.6.4-3.3.6-5 .6h-8c-1.7 0-3.4-.2-5-.6V49c0 1.1-.9 2-2 2h-3c-.9 0-1.7-.6-2-1.5L16 43c-3.6-1.8-6-5.4-6-9z"/>
+      <circle cx="18" cy="38" r="1.5" class="paper"/>
+      <path class="ink" d="M15 38.5c-.5-1 0-2.5 1.5-3"/>
+      <path class="ink" d="M14 42.5c0-1.5 1.5-3 3.5-3s3.5 1.5 3.5 3"/>
+    </symbol>
+
+    <!-- CITY tile: crenellated wall with towers, inside tile border -->
+    <symbol id="i-city" viewBox="0 0 64 64">
+      <rect class="ink" x="5" y="5" width="54" height="54" rx="3"/>
+      <path class="fill" style="opacity:.1" d="M8 38h48v18H8z"/>
+      <!-- left tower -->
+      <path class="ink" d="M12 26v26M22 26v26M12 26h10M12 30v-4h2v3h2v-3h2v3h2v-3h2v4"/>
+      <!-- right tower -->
+      <path class="ink" d="M42 26v26M52 26v26M42 26h10M42 30v-4h2v3h2v-3h2v3h2v-3h2v4"/>
+      <!-- wall between towers -->
+      <path class="ink" d="M22 38h20v14H22z"/>
+      <path class="ink" d="M22 38v-3h2v2h2v-2h2v2h2v-2h2v2h2v-2h2v2h2v-2h2v3"/>
+      <!-- gate -->
+      <path class="ink" d="M29 44a3 3 0 0 1 6 0v8h-6z"/>
+      <!-- hatching on wall -->
+      <path class="hatch" d="M24 41h16M24 44h16M24 47h16M24 50h16"/>
+      <!-- ground -->
+      <path class="ink" d="M8 56h48"/>
+    </symbol>
+
+    <!-- ROAD tile: curving path with trees on sides -->
+    <symbol id="i-road" viewBox="0 0 64 64">
+      <rect class="ink" x="5" y="5" width="54" height="54" rx="3"/>
+      <!-- path -->
+      <path class="fill" style="opacity:.12" d="M24 5c0 10 16 18 16 28s-16 16-16 26h16c0-10 16-16 16-26"/>
+      <path class="ink" d="M24 5c0 12 16 18 16 28s-16 16-16 26"/>
+      <path class="ink" d="M40 5c0 12 16 18 16 28s-16 16-16 26"/>
+      <!-- cobblestone dashes -->
+      <path class="ink" d="M32 8v3M34 16v3M36 24v3M38 32v3M36 40v3M34 48v3M32 56v3" stroke-width="1.2"/>
+      <!-- trees on left -->
+      <circle class="ink" cx="13" cy="18" r="3"/>
+      <path class="ink" d="M13 21v3"/>
+      <circle class="ink" cx="12" cy="40" r="3"/>
+      <path class="ink" d="M12 43v3"/>
+      <!-- grass tufts right -->
+      <path class="ink" d="M50 20c1-2 2-2 3 0M48 48c1-2 2-2 3 0"/>
+    </symbol>
+
+    <!-- MONASTERY tile: chapel with cross in field -->
+    <symbol id="i-monastery" viewBox="0 0 64 64">
+      <rect class="ink" x="5" y="5" width="54" height="54" rx="3"/>
+      <!-- chapel body -->
+      <path class="fill" style="opacity:.12" d="M22 28h20v22H22z"/>
+      <path class="ink" d="M22 28h20v22H22z"/>
+      <!-- roof -->
+      <path class="fill" d="M20 28l12-14 12 14z" style="opacity:.22"/>
+      <path class="ink" d="M20 28l12-14 12 14"/>
+      <!-- cross on top -->
+      <path class="ink" d="M32 8v8M29 12h6"/>
+      <!-- door -->
+      <path class="ink" d="M29 40a3 3 0 0 1 6 0v10h-6z"/>
+      <!-- windows -->
+      <circle class="ink" cx="26" cy="34" r="1.5"/>
+      <circle class="ink" cx="38" cy="34" r="1.5"/>
+      <!-- field around -->
+      <path class="ink" d="M9 53c1-2 2-2 3 0M48 52c1-2 2-2 3 0M12 20c1-2 2-2 3 0M49 20c1-2 2-2 3 0"/>
+      <path class="ink" d="M8 56h48"/>
+    </symbol>
+
+    <!-- FIELD tile: grass tufts scattered -->
+    <symbol id="i-field" viewBox="0 0 64 64">
+      <rect class="ink" x="5" y="5" width="54" height="54" rx="3"/>
+      <path class="fill" style="opacity:.1" d="M8 8h48v48H8z"/>
+      <!-- grass tufts: little 3-blade clumps -->
+      <g class="ink">
+        <path d="M12 22c1-3 2-3 3 0M14 22c0-2 0-3 1-3"/>
+        <path d="M24 18c1-3 2-3 3 0M26 18c0-2 0-3 1-3"/>
+        <path d="M38 22c1-3 2-3 3 0M40 22c0-2 0-3 1-3"/>
+        <path d="M50 18c1-3 2-3 3 0M52 18c0-2 0-3 1-3"/>
+        <path d="M16 36c1-3 2-3 3 0M18 36c0-2 0-3 1-3"/>
+        <path d="M30 40c1-3 2-3 3 0M32 40c0-2 0-3 1-3"/>
+        <path d="M44 34c1-3 2-3 3 0M46 34c0-2 0-3 1-3"/>
+        <path d="M20 52c1-3 2-3 3 0M22 52c0-2 0-3 1-3"/>
+        <path d="M34 52c1-3 2-3 3 0M36 52c0-2 0-3 1-3"/>
+        <path d="M46 50c1-3 2-3 3 0M48 50c0-2 0-3 1-3"/>
+      </g>
+    </symbol>
+
+    <!-- INN: timber-frame inn with hanging sign -->
+    <symbol id="i-inn" viewBox="0 0 64 64">
+      <!-- building -->
+      <path class="fill" style="opacity:.15" d="M14 28h36v26H14z"/>
+      <path class="ink" d="M14 28h36v26H14z"/>
+      <!-- roof -->
+      <path class="fill" d="M10 28l22-16 22 16z" style="opacity:.28"/>
+      <path class="ink" d="M10 28l22-16 22 16"/>
+      <!-- timber frame X's -->
+      <path class="ink" d="M14 40l10 14M24 40l-10 14M40 40l10 14M50 40l-10 14"/>
+      <!-- door -->
+      <path class="ink" d="M28 54v-12h8v12"/>
+      <circle class="ink" cx="34" cy="48" r=".6"/>
+      <!-- sign post -->
+      <path class="ink" d="M52 32v8"/>
+      <rect class="ink" x="48" y="40" width="8" height="6"/>
+      <path class="ink" d="M50 43h4"/>
+    </symbol>
+
+    <!-- CATHEDRAL: gothic church with spires -->
+    <symbol id="i-cathedral" viewBox="0 0 64 64">
+      <!-- main nave -->
+      <path class="fill" style="opacity:.12" d="M18 32h28v22H18z"/>
+      <path class="ink" d="M18 32h28v22H18z"/>
+      <!-- central spire -->
+      <path class="fill" d="M26 32l6-22 6 22z" style="opacity:.25"/>
+      <path class="ink" d="M26 32l6-22 6 22"/>
+      <path class="ink" d="M32 6v6M29 9h6"/>
+      <!-- side spires -->
+      <path class="ink" d="M18 32V18l4-6 4 6v14"/>
+      <path class="ink" d="M22 10v4"/>
+      <path class="ink" d="M46 32V18l-4-6-4 6v14"/>
+      <path class="ink" d="M42 10v4"/>
+      <!-- rose window -->
+      <circle class="ink" cx="32" cy="24" r="3"/>
+      <path class="ink" d="M32 21v6M29 24h6"/>
+      <!-- arched door -->
+      <path class="ink" d="M28 54v-10a4 4 0 0 1 8 0v10"/>
+      <!-- arched windows on sides -->
+      <path class="ink" d="M21 48v-6a2 2 0 0 1 4 0v6"/>
+      <path class="ink" d="M39 48v-6a2 2 0 0 1 4 0v6"/>
+      <!-- ground -->
+      <path class="ink" d="M8 56h48"/>
+    </symbol>
+
+    <!-- RIVER tile: winding river with waves -->
+    <symbol id="i-river" viewBox="0 0 64 64">
+      <rect class="ink" x="5" y="5" width="54" height="54" rx="3"/>
+      <path class="fill" style="opacity:.22" d="M24 5c0 12-10 16-10 26s10 14 10 28h16c0-14 10-18 10-28S40 17 40 5z"/>
+      <path class="ink" d="M24 5c0 12-10 16-10 26s10 14 10 28"/>
+      <path class="ink" d="M40 5c0 12 10 16 10 26s-10 14-10 28"/>
+      <!-- waves -->
+      <path class="ink" d="M20 16c2 1.5 4 1.5 6 0s4-1.5 6 0M18 28c2 1.5 4 1.5 6 0s4-1.5 6 0M34 28c2 1.5 4 1.5 6 0s4-1.5 6 0M20 42c2 1.5 4 1.5 6 0s4-1.5 6 0M32 52c2 1.5 4 1.5 6 0s4-1.5 6 0"/>
+    </symbol>
+
+    <!-- GARDEN (for Abbot): walled garden with plants -->
+    <symbol id="i-garden" viewBox="0 0 64 64">
+      <rect class="ink" x="5" y="5" width="54" height="54" rx="3"/>
+      <!-- garden plot -->
+      <path class="fill" style="opacity:.12" d="M12 38h40v18H12z"/>
+      <path class="ink" d="M12 38h40v18H12z"/>
+      <!-- shrubs / topiary -->
+      <circle class="fill" cx="22" cy="30" r="7" style="opacity:.25"/>
+      <circle class="ink" cx="22" cy="30" r="7"/>
+      <path class="ink" d="M22 37v6"/>
+      <circle class="fill" cx="42" cy="26" r="5" style="opacity:.25"/>
+      <circle class="ink" cx="42" cy="26" r="5"/>
+      <path class="ink" d="M42 31v8"/>
+      <!-- flowers -->
+      <circle class="ink" cx="18" cy="48" r="1.5"/>
+      <circle class="ink" cx="26" cy="50" r="1.5"/>
+      <circle class="ink" cx="34" cy="48" r="1.5"/>
+      <circle class="ink" cx="42" cy="50" r="1.5"/>
+      <circle class="ink" cx="48" cy="48" r="1.5"/>
+      <!-- ground lines -->
+      <path class="hatch" d="M12 44h40M12 52h40"/>
+    </symbol>
+
+    <!-- SHIELD (coat of arms) -->
+    <symbol id="i-shield" viewBox="0 0 64 64">
+      <path class="fill" d="M32 6l-18 4v16c0 14 9 22 18 28 9-6 18-14 18-28V10z"/>
+      <path class="thin" style="stroke:var(--parchment);stroke-width:2" d="M32 18v24M20 30h24"/>
+    </symbol>
+
+    <!-- GOODS: wine barrel -->
+    <symbol id="i-wine" viewBox="0 0 64 64">
+      <ellipse class="fill" cx="32" cy="32" rx="18" ry="24"/>
+      <path class="thin" style="stroke:var(--parchment);stroke-width:2" d="M14 20h36M14 44h36"/>
+      <path class="thin" style="stroke:var(--parchment);stroke-width:1.5" d="M16 14c6 3 26 3 32 0M16 50c6-3 26-3 32 0"/>
+      <path class="thin" style="stroke:var(--parchment);stroke-width:1.5" d="M32 8v48"/>
+    </symbol>
+
+    <!-- GOODS: wheat / grain sheaf -->
+    <symbol id="i-grain" viewBox="0 0 64 64">
+      <!-- center stalk -->
+      <path class="ink" d="M32 56V16"/>
+      <!-- ear kernels -->
+      <path class="fill" d="M32 16c-3-3-6-3-6-6 3 0 6 1 6 4zM32 16c3-3 6-3 6-6-3 0-6 1-6 4z"/>
+      <path class="fill" d="M32 24c-4-2-7-1-8-4 2-1 6 0 8 2zM32 24c4-2 7-1 8-4-2-1-6 0-8 2z"/>
+      <path class="fill" d="M32 32c-4-2-7-1-8-4 2-1 6 0 8 2zM32 32c4-2 7-1 8-4-2-1-6 0-8 2z"/>
+      <path class="fill" d="M32 40c-4-2-7-1-8-4 2-1 6 0 8 2zM32 40c4-2 7-1 8-4-2-1-6 0-8 2z"/>
+      <!-- tie / ribbon -->
+      <path class="ink" d="M24 48h16M22 50c4 2 16 2 20 0M24 52h16"/>
+    </symbol>
+
+    <!-- GOODS: cloth bolt -->
+    <symbol id="i-cloth" viewBox="0 0 64 64">
+      <path class="fill" d="M12 18c0-3 3-6 8-6h24c5 0 8 3 8 6v6c0 2-2 4-5 4h-3v22c0 3-2 6-6 6h-12c-4 0-6-3-6-6V28h-3c-3 0-5-2-5-4z"/>
+      <path class="thin" style="stroke:var(--parchment);stroke-width:1.8" d="M16 22h32M18 24h30"/>
+      <path class="thin" style="stroke:var(--parchment);stroke-width:1.4" d="M24 32v18M30 32v18M36 32v18M42 32v18"/>
+    </symbol>
+
+    <!-- TILE (generic land tile back) -->
+    <symbol id="i-tile" viewBox="0 0 64 64">
+      <rect class="ink" x="5" y="5" width="54" height="54" rx="3"/>
+      <rect class="ink" x="10" y="10" width="44" height="44" rx="2" style="opacity:.6"/>
+      <path class="hatch" d="M14 14l36 36M14 22l28 28M14 30l20 20M14 38l12 12M22 14l28 28M30 14l20 20M38 14l12 12"/>
+    </symbol>
+
+    <!-- BAG: cloth drawstring bag -->
+    <symbol id="i-bag" viewBox="0 0 64 64">
+      <!-- body -->
+      <path class="fill" d="M16 24c0-3 2-5 5-5l2-2h18l2 2c3 0 5 2 5 5l3 28c.3 3-2 6-5 6H18c-3 0-5.3-3-5-6z"/>
+      <!-- drawstring -->
+      <path class="thin" style="stroke:var(--parchment);stroke-width:2" d="M22 19c0-4 4-6 10-6s10 2 10 6"/>
+      <!-- tassels -->
+      <path class="thin" style="stroke:var(--parchment);stroke-width:1.5" d="M26 18l-2 6M38 18l2 6M32 15v8"/>
+      <!-- fabric fold -->
+      <path class="thin" style="stroke:var(--parchment);stroke-width:1.2;opacity:.5" d="M24 32c4 3 12 3 16 0"/>
+    </symbol>
+
+    <!-- FLEUR DE LYS (ornament) -->
+    <symbol id="i-fleur" viewBox="0 0 64 64">
+      <path class="fill" d="M32 4c-2 6-3 12-1 16-4-4-10-6-13-3s-1 9 4 12c-6 0-12 3-12 8s6 8 12 8c-5 3-7 9-4 12s9 1 13-3c-2 4-1 10 1 16 2-6 3-12 1-16 4 4 10 6 13 3s1-9-4-12c6 0 12-3 12-8s-6-8-12-8c5-3 7-9 4-12s-9-1-13 3c2-4 1-10-1-16z" style="opacity:.85"/>
+      <circle class="paper" cx="32" cy="32" r="3"/>
+    </symbol>
+  </defs>
+</svg>
+
 <div class="page">
 
 <header class="masthead">
@@ -690,6 +987,16 @@ footer .orn{color:var(--rule);font-size:22px;display:block;margin-bottom:10px}
     <span>AGE 7+</span><span class="dot"></span>
     <span>45 MIN</span>
   </div>
+  <a class="pdf-btn" href="https://drive.google.com/file/d/1OndpA1Qmmg7cYhlGyoMV_TT4ufpxvoYC/view?usp=sharing" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+      <path d="M14 2v6h6"/>
+      <path d="M12 18v-6"/>
+      <path d="M9 15l3 3 3-3"/>
+    </svg>
+    <span>下載 PDF 版本</span>
+    <span class="en">Download PDF</span>
+  </a>
 </header>
 
 <nav class="tabs">
@@ -758,25 +1065,208 @@ footer .orn{color:var(--rule);font-size:22px;display:block;margin-bottom:10px}
 
   <div class="terrain-grid">
     <div class="terrain">
-      <div class="tile city"></div>
+      <svg class="tile-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-label="城市 City">
+        <!-- grass base -->
+        <rect width="100" height="100" fill="#b6c275"/>
+        <rect width="100" height="100" fill="url(#g-grass)" opacity=".55"/>
+        <!-- city mass occupying top+right -->
+        <path d="M0 0h100v62c-8 4-18 4-26 0-6-3-12-3-18 0-6 3-14 3-22 2-8-1-18-3-26-10-5-4-8-9-8-15z" fill="#c98b4b"/>
+        <path d="M0 0h100v62c-8 4-18 4-26 0-6-3-12-3-18 0-6 3-14 3-22 2-8-1-18-3-26-10-5-4-8-9-8-15z" fill="url(#g-stone)" opacity=".55"/>
+        <!-- city wall shadow edge -->
+        <path d="M0 39c4 6 12 9 20 10 8 1 16 1 22-2 6-3 12-3 18 0 8 4 18 4 26 0l14-6v2c-8 4-18 4-26 0-6-3-12-3-18 0-6 3-14 3-22 2-8-1-18-3-26-10-5-4-8-9-8-15v-4c0 8 0 17 0 23z" fill="#000" opacity=".18"/>
+        <!-- crenellations along the wall -->
+        <g fill="#e8cfa1" stroke="#5a3a20" stroke-width=".6">
+          <rect x="8" y="4" width="5" height="5"/>
+          <rect x="18" y="2" width="5" height="5"/>
+          <rect x="30" y="3" width="5" height="5"/>
+          <rect x="44" y="2" width="5" height="5"/>
+          <rect x="60" y="3" width="5" height="5"/>
+          <rect x="76" y="2" width="5" height="5"/>
+          <rect x="90" y="3" width="5" height="5"/>
+        </g>
+        <!-- tower -->
+        <rect x="62" y="14" width="16" height="28" fill="#bf8548" stroke="#5a3a20" stroke-width=".8"/>
+        <g fill="#bf8548" stroke="#5a3a20" stroke-width=".6">
+          <rect x="62" y="10" width="4" height="4"/>
+          <rect x="68" y="10" width="4" height="4"/>
+          <rect x="74" y="10" width="4" height="4"/>
+        </g>
+        <path d="M66 22h8v6h-8z" fill="#3b2514"/>
+        <!-- stone texture specks -->
+        <g fill="#5a3a20" opacity=".4">
+          <circle cx="14" cy="20" r=".8"/><circle cx="26" cy="24" r=".6"/>
+          <circle cx="40" cy="18" r=".7"/><circle cx="52" cy="26" r=".8"/>
+          <circle cx="86" cy="20" r=".6"/><circle cx="90" cy="32" r=".8"/>
+          <circle cx="18" cy="32" r=".5"/><circle cx="34" cy="34" r=".6"/>
+        </g>
+        <!-- mortar lines -->
+        <g stroke="#5a3a20" stroke-width=".4" opacity=".5" fill="none">
+          <path d="M0 16h60M0 26h50M54 32h44M0 36h46"/>
+          <path d="M14 10v6M28 16v10M40 10v8M52 18v14M82 16v20M92 10v24"/>
+        </g>
+        <!-- grass texture -->
+        <g fill="#7a8a40" opacity=".65">
+          <path d="M12 78l2-4 2 4zM28 84l2-4 2 4zM46 88l2-4 2 4zM64 84l2-4 2 4zM80 88l2-4 2 4z"/>
+          <circle cx="20" cy="70" r="1"/><circle cx="38" cy="76" r="1"/><circle cx="72" cy="78" r="1"/><circle cx="88" cy="74" r="1"/>
+        </g>
+        <defs>
+          <linearGradient id="g-grass" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#c9d084"/><stop offset="1" stop-color="#98a85a"/>
+          </linearGradient>
+          <linearGradient id="g-stone" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#e2ae74"/><stop offset="1" stop-color="#8e5a2e"/>
+          </linearGradient>
+        </defs>
+      </svg>
       <div class="name">城市</div>
       <div class="en">City</div>
       <div class="pt">2 / 3 PTS PER TILE</div>
     </div>
+
     <div class="terrain">
-      <div class="tile road"></div>
+      <svg class="tile-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-label="道路 Road">
+        <rect width="100" height="100" fill="#b6c275"/>
+        <rect width="100" height="100" fill="url(#g-grass2)" opacity=".55"/>
+        <!-- winding road -->
+        <path d="M40 0c0 20 20 25 20 40s-24 25-24 42 18 12 18 18" fill="none" stroke="#3b2514" stroke-width="18" opacity=".22"/>
+        <path d="M40 0c0 20 20 25 20 40s-24 25-24 42 18 12 18 18" fill="none" stroke="#d9b472" stroke-width="14"/>
+        <path d="M40 0c0 20 20 25 20 40s-24 25-24 42 18 12 18 18" fill="none" stroke="#b88c3e" stroke-width="14" stroke-dasharray="2 4" opacity=".6"/>
+        <!-- road edges -->
+        <path d="M40 0c0 20 20 25 20 40s-24 25-24 42 18 12 18 18" fill="none" stroke="#5a3a20" stroke-width=".8" opacity=".7"/>
+        <!-- (draw two edge curves offset) -->
+        <g fill="none" stroke="#5a3a20" stroke-width=".6" opacity=".55">
+          <path d="M33 0c0 20 20 25 20 40s-24 25-24 42 18 12 18 18"/>
+          <path d="M47 0c0 20 20 25 20 40s-24 25-24 42 18 12 18 18"/>
+        </g>
+        <!-- cobblestones -->
+        <g fill="#8a5a28" opacity=".55">
+          <ellipse cx="41" cy="12" rx="1.6" ry="1"/>
+          <ellipse cx="48" cy="22" rx="1.6" ry="1"/>
+          <ellipse cx="55" cy="32" rx="1.6" ry="1"/>
+          <ellipse cx="58" cy="44" rx="1.6" ry="1"/>
+          <ellipse cx="52" cy="56" rx="1.6" ry="1"/>
+          <ellipse cx="42" cy="66" rx="1.6" ry="1"/>
+          <ellipse cx="38" cy="76" rx="1.6" ry="1"/>
+          <ellipse cx="42" cy="86" rx="1.6" ry="1"/>
+          <ellipse cx="50" cy="94" rx="1.6" ry="1"/>
+        </g>
+        <!-- tree -->
+        <g transform="translate(18 58)">
+          <circle cx="0" cy="-3" r="7" fill="#4a6a2e"/>
+          <circle cx="-3" cy="-6" r="5" fill="#5c7a38"/>
+          <circle cx="3" cy="-5" r="5" fill="#6a8a42"/>
+          <rect x="-1" y="2" width="2" height="4" fill="#5a3a20"/>
+        </g>
+        <!-- grass tufts -->
+        <g fill="#7a8a40" opacity=".6">
+          <path d="M78 30l2-4 2 4zM84 58l2-4 2 4zM12 20l2-4 2 4zM76 78l2-4 2 4zM88 12l2-4 2 4z"/>
+          <circle cx="82" cy="42" r="1"/><circle cx="14" cy="82" r="1"/>
+        </g>
+        <defs>
+          <linearGradient id="g-grass2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#c9d084"/><stop offset="1" stop-color="#98a85a"/>
+          </linearGradient>
+        </defs>
+      </svg>
       <div class="name">道路</div>
       <div class="en">Road</div>
       <div class="pt">1 PT PER TILE</div>
     </div>
+
     <div class="terrain">
-      <div class="tile monastery"></div>
+      <svg class="tile-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-label="修道院 Monastery">
+        <rect width="100" height="100" fill="#b6c275"/>
+        <rect width="100" height="100" fill="url(#g-grass3)" opacity=".55"/>
+        <!-- chapel body -->
+        <rect x="36" y="48" width="28" height="30" fill="#ecd9b0" stroke="#5a3a20" stroke-width=".8"/>
+        <!-- chapel roof -->
+        <path d="M32 50l18-20 18 20z" fill="#7a1f18" stroke="#3b1108" stroke-width=".8"/>
+        <path d="M32 50l18-20 18 20z" fill="url(#g-roof)" opacity=".35"/>
+        <!-- cross on top -->
+        <rect x="49" y="18" width="2" height="10" fill="#3b2514"/>
+        <rect x="46" y="21" width="8" height="2" fill="#3b2514"/>
+        <!-- door -->
+        <path d="M46 78v-12a4 4 0 0 1 8 0v12z" fill="#5a3a20" stroke="#3b1108" stroke-width=".6"/>
+        <circle cx="52.5" cy="72" r=".6" fill="#d9b472"/>
+        <!-- windows -->
+        <rect x="39" y="54" width="4" height="6" fill="#3b2514" rx="2"/>
+        <rect x="57" y="54" width="4" height="6" fill="#3b2514" rx="2"/>
+        <!-- path to door -->
+        <path d="M46 90l-6 10h20l-6-10z" fill="#c9a064" opacity=".7"/>
+        <!-- trees around -->
+        <g>
+          <circle cx="14" cy="28" r="6" fill="#4a6a2e"/><circle cx="14" cy="28" r="4" fill="#5c7a38"/>
+          <rect x="13" y="32" width="2" height="3" fill="#5a3a20"/>
+        </g>
+        <g>
+          <circle cx="84" cy="34" r="5" fill="#4a6a2e"/><circle cx="84" cy="34" r="3" fill="#5c7a38"/>
+          <rect x="83" y="37" width="2" height="3" fill="#5a3a20"/>
+        </g>
+        <g>
+          <circle cx="18" cy="82" r="4" fill="#4a6a2e"/>
+          <rect x="17" y="84" width="2" height="3" fill="#5a3a20"/>
+        </g>
+        <!-- grass tufts -->
+        <g fill="#7a8a40" opacity=".6">
+          <path d="M30 90l2-4 2 4zM70 88l2-4 2 4zM8 60l2-4 2 4zM90 70l2-4 2 4z"/>
+        </g>
+        <defs>
+          <linearGradient id="g-grass3" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#c9d084"/><stop offset="1" stop-color="#98a85a"/>
+          </linearGradient>
+          <linearGradient id="g-roof" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#fff" stop-opacity=".4"/><stop offset="1" stop-color="#000" stop-opacity=".3"/>
+          </linearGradient>
+        </defs>
+      </svg>
       <div class="name">修道院</div>
       <div class="en">Monastery</div>
       <div class="pt">1 PT PER NEIGHBOR</div>
     </div>
+
     <div class="terrain">
-      <div class="tile field"></div>
+      <svg class="tile-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-label="草地 Field">
+        <rect width="100" height="100" fill="#b6c275"/>
+        <rect width="100" height="100" fill="url(#g-grass4)" opacity=".7"/>
+        <!-- soft field patches -->
+        <ellipse cx="30" cy="40" rx="30" ry="18" fill="#a6b668" opacity=".5"/>
+        <ellipse cx="76" cy="70" rx="28" ry="16" fill="#c4d08a" opacity=".45"/>
+        <!-- grass tufts scattered -->
+        <g fill="#6a7a30" opacity=".75">
+          <path d="M10 22c2-4 3-4 4 0M14 22c0-3 1-4 2-3"/>
+          <path d="M24 14c2-4 3-4 4 0M28 14c0-3 1-4 2-3"/>
+          <path d="M42 26c2-4 3-4 4 0M46 26c0-3 1-4 2-3"/>
+          <path d="M60 18c2-4 3-4 4 0M64 18c0-3 1-4 2-3"/>
+          <path d="M78 28c2-4 3-4 4 0M82 28c0-3 1-4 2-3"/>
+          <path d="M14 44c2-4 3-4 4 0M18 44c0-3 1-4 2-3"/>
+          <path d="M34 50c2-4 3-4 4 0M38 50c0-3 1-4 2-3"/>
+          <path d="M52 42c2-4 3-4 4 0M56 42c0-3 1-4 2-3"/>
+          <path d="M70 48c2-4 3-4 4 0M74 48c0-3 1-4 2-3"/>
+          <path d="M86 46c2-4 3-4 4 0M90 46c0-3 1-4 2-3"/>
+          <path d="M8 64c2-4 3-4 4 0M12 64c0-3 1-4 2-3"/>
+          <path d="M28 72c2-4 3-4 4 0M32 72c0-3 1-4 2-3"/>
+          <path d="M46 68c2-4 3-4 4 0M50 68c0-3 1-4 2-3"/>
+          <path d="M64 78c2-4 3-4 4 0M68 78c0-3 1-4 2-3"/>
+          <path d="M82 74c2-4 3-4 4 0M86 74c0-3 1-4 2-3"/>
+          <path d="M20 88c2-4 3-4 4 0M24 88c0-3 1-4 2-3"/>
+          <path d="M40 92c2-4 3-4 4 0M44 92c0-3 1-4 2-3"/>
+          <path d="M58 88c2-4 3-4 4 0M62 88c0-3 1-4 2-3"/>
+          <path d="M76 92c2-4 3-4 4 0M80 92c0-3 1-4 2-3"/>
+        </g>
+        <!-- tiny flowers -->
+        <g>
+          <circle cx="22" cy="34" r="1" fill="#f4e08a"/>
+          <circle cx="56" cy="58" r="1" fill="#e88074"/>
+          <circle cx="78" cy="38" r="1" fill="#f4e08a"/>
+          <circle cx="36" cy="78" r="1" fill="#e88074"/>
+          <circle cx="88" cy="62" r="1" fill="#f4e08a"/>
+        </g>
+        <defs>
+          <linearGradient id="g-grass4" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#c9d084"/><stop offset="1" stop-color="#8a9a50"/>
+          </linearGradient>
+        </defs>
+      </svg>
       <div class="name">草地</div>
       <div class="en">Field</div>
       <div class="pt">3 PTS PER CITY</div>
@@ -820,28 +1310,28 @@ footer .orn{color:var(--rule);font-size:22px;display:block;margin-bottom:10px}
 
   <div class="meeple-diagram">
     <div class="mp">
-      <div class="fig" style="background:linear-gradient(135deg,#c98a55,#a56a3a)"><div class="dot" style="left:50%;top:50%;transform:translate(-50%,-50%)"></div></div>
+      <div class="fig" style="background:#b9c67d;display:grid;place-items:center;color:var(--wine);"><div class="wcut" style="width:54px;height:54px"><svg viewBox="0 0 64 64" width="100%" height="100%"><use href="#i-meeple"/></svg></div></div>
       <div>
         <h4>騎士 <span class="en">Knight</span></h4>
         <p>置於 <strong>城市區塊</strong> 中。城市完成時計分。</p>
       </div>
     </div>
     <div class="mp">
-      <div class="fig"><div class="dot" style="left:50%;top:50%;transform:translate(-50%,-50%)"></div><div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,#d6bb85 40% 60%,transparent 60%)"></div></div>
+      <div class="fig" style="background:#b9c67d;display:grid;place-items:center;color:#2a548b;"><div class="wcut" style="width:54px;height:54px"><svg viewBox="0 0 64 64" width="100%" height="100%"><use href="#i-meeple"/></svg></div></div>
       <div>
         <h4>強盜 <span class="en">Highwayman</span></h4>
         <p>置於 <strong>道路</strong> 上。道路完成(兩端封閉)時計分。</p>
       </div>
     </div>
     <div class="mp">
-      <div class="fig"><div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:20px;height:24px;background:#e6d9a8;border:1px solid #5a331a"></div><div class="dot" style="left:50%;top:30%;transform:translate(-50%,0)"></div></div>
+      <div class="fig" style="background:#b9c67d;display:grid;place-items:center;color:#3a6a3a;"><div class="wcut" style="width:54px;height:54px"><svg viewBox="0 0 64 64" width="100%" height="100%"><use href="#i-meeple"/></svg></div></div>
       <div>
         <h4>修士 <span class="en">Monk</span></h4>
         <p>置於 <strong>修道院</strong> 中。當修道院被 9 塊地形(含自己)包圍時完成。</p>
       </div>
     </div>
     <div class="mp">
-      <div class="fig" style="background:repeating-linear-gradient(35deg,#c9c67a 0 6px,#b9b86a 6px 12px)"><div class="dot" style="left:30%;top:60%;background:#3d2817"></div></div>
+      <div class="fig" style="background:#b9c67d;display:grid;place-items:center;color:#d6a53a;"><div class="wcut" style="width:54px;height:54px;transform:rotate(90deg)"><svg viewBox="0 0 64 64" width="100%" height="100%"><use href="#i-meeple"/></svg></div></div>
       <div>
         <h4>農夫 <span class="en">Farmer</span></h4>
         <p>側放於 <strong>草地</strong>。遊戲結束才計分,<strong>不會被收回</strong>。</p>
@@ -906,28 +1396,28 @@ footer .orn{color:var(--rule);font-size:22px;display:block;margin-bottom:10px}
   <h3><span class="num">§ III.i</span>擴充組件 <span class="en">Components</span></h3>
   <div class="two-col">
     <div class="feat">
-      <div class="badge">🍺</div>
+      <div class="badge"><svg viewBox="0 0 64 64" width="100%" height="100%"><use href="#i-inn"/></svg></div>
       <div>
         <h4>旅店 <span class="en">Inn on the Lake</span></h4>
         <p>6 張板塊,道路邊有小旅店圖示。</p>
       </div>
     </div>
     <div class="feat">
-      <div class="badge">✝</div>
+      <div class="badge"><svg viewBox="0 0 64 64" width="100%" height="100%"><use href="#i-cathedral"/></svg></div>
       <div>
         <h4>大教堂 <span class="en">Cathedral</span></h4>
         <p>2 張板塊,城市中央有大教堂建築。</p>
       </div>
     </div>
     <div class="feat">
-      <div class="badge">⁜</div>
+      <div class="badge"><svg viewBox="0 0 64 64" width="100%" height="100%"><use href="#i-tile"/></svg></div>
       <div>
         <h4>其他地形板塊 <span class="en">More tiles</span></h4>
         <p>10 張無旅店或教堂的新地形板塊。</p>
       </div>
     </div>
     <div class="feat">
-      <div class="badge">巨</div>
+      <div class="badge"><svg viewBox="0 0 64 64" width="100%" height="100%"><use href="#i-meeple-big"/></svg></div>
       <div>
         <h4>大米寶 <span class="en">Big Meeple</span></h4>
         <p>每色 1 個,以一當二。另附第 6 色(灰色)整組米寶。</p>
@@ -997,35 +1487,35 @@ footer .orn{color:var(--rule);font-size:22px;display:block;margin-bottom:10px}
   <h3><span class="num">§ IV.i</span>擴充組件 <span class="en">Components</span></h3>
   <div class="two-col">
     <div class="feat">
-      <div class="badge">✢</div>
+      <div class="badge"><svg viewBox="0 0 64 64" width="100%" height="100%"><use href="#i-tile"/></svg></div>
       <div>
         <h4>24 張地形板塊 <span class="en">24 Land Tiles</span></h4>
         <p>其中 20 張含有商品圖示:<strong>布</strong>、<strong>酒</strong>、<strong>麥</strong>。</p>
       </div>
     </div>
     <div class="feat">
-      <div class="badge">★</div>
+      <div class="badge"><svg viewBox="0 0 64 64" width="100%" height="100%"><use href="#i-wine"/></svg></div>
       <div>
         <h4>20 個商品貨物標記 <span class="en">20 Goods Tokens</span></h4>
         <p>布 6、酒 6、麥 8。共同放在桌邊「貨倉」。</p>
       </div>
     </div>
     <div class="feat">
-      <div class="badge">建</div>
+      <div class="badge"><svg viewBox="0 0 64 64" width="100%" height="100%"><use href="#i-builder"/></svg></div>
       <div>
         <h4>建造者 <span class="en">The Builder</span></h4>
         <p>每色 1 個高瘦的建造者人偶。</p>
       </div>
     </div>
     <div class="feat">
-      <div class="badge">豕</div>
+      <div class="badge"><svg viewBox="0 0 64 64" width="100%" height="100%"><use href="#i-pig"/></svg></div>
       <div>
         <h4>豬 <span class="en">The Pig</span></h4>
         <p>每色 1 隻豬,用於加強草地分數。</p>
       </div>
     </div>
     <div class="feat">
-      <div class="badge">袋</div>
+      <div class="badge"><svg viewBox="0 0 64 64" width="100%" height="100%"><use href="#i-bag"/></svg></div>
       <div>
         <h4>布袋(選用) <span class="en">Cloth bag</span></h4>
         <p>2026 版附贈抽牌布袋,代替洗混的堆疊。</p>
@@ -1167,7 +1657,7 @@ footer .orn{color:var(--rule);font-size:22px;display:block;margin-bottom:10px}
 
   <div class="callout warn">
     <h5>撤回的時機 · When to withdraw</h5>
-    <p>修道院長最大的戰術是 <strong>主動撤回</strong>:你可以在修道院 / 花園只有 6–8 格鄰居、已有可觀分數時,提前結算回收,不必等完整 9 格才拿分。<strong>但代價是本回合不放板塊</strong>。</p>
+    <p>修道院長最大的戰術是 <strong>主動撤回</strong>:你可以在修道院 / 花園只有 6–8 格鄰居、已有可觀分數時,提前結算回收,不必等完整 9 格才拿分。<strong>但代價是本回合不放米寶</strong>(撤回是「取代」放米寶這個步驟)。</p>
   </div>
 
   <div class="divider"><div class="line"></div><div class="orn">✦ ❦ ✦</div><div class="line"></div></div>
